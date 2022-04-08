@@ -1,0 +1,10 @@
+Mongo-URI: "mongodb://localhost:27017"
+Mongo-Database: "BasicChest"
+Mongo-Collection: "users"
+
+Storage-Title: "&8» &bStorage "
+Storage-Title-Page: "&7(&e%page%&7/&e2&7)"
+
+Storage-Size: 36
+
+Page-Amount: 2

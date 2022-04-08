@@ -1,0 +1,8 @@
+name: BasicChest
+author: Zeltuv
+version: 1.0
+main: tr.zeltuv.basicchest.ChestPlugin
+commands:
+  chest:
+    permission: chest.use
+    description: Access your storage.
