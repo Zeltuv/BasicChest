@@ -126,7 +126,7 @@ public class UserManager implements IManager, Listener {
         userData.getContent().get(page).clear();
 
         for (int i = 0; i < size; i++) {
-            if (i != (page - 1) && i != (page - 9)) {
+            if (i != (size - 1) && i != (size - 9)) {
                 if (inventory.getItem(i) != null && inventory.getItem(i).getType() != Material.AIR) {
                        userData.
                                getContent().

@@ -18,13 +18,13 @@ import java.util.Map;
  */
 
 public class ItemSerializer {
-    public static String serializeIntoString(Map<Integer, List<SlotItem>> map) {
+    public static String serializeIntoString(List<SlotItem> slotItemList) {
 
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             BukkitObjectOutputStream bukkitObjectOutputStream = new BukkitObjectOutputStream(byteArrayOutputStream);
 
-            bukkitObjectOutputStream.writeObject(map);
+            bukkitObjectOutputStream.writeObject(slotItemList);
             bukkitObjectOutputStream.flush();
 
             String s = Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());;
@@ -40,12 +40,12 @@ public class ItemSerializer {
         }
     }
 
-    public static Map<Integer, List<SlotItem>> fromMapString(String data) {
+    public static List<SlotItem> fromMapString(String data) {
         try {
             ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(Base64.getDecoder().decode(data));
             BukkitObjectInputStream objectInputStream = new BukkitObjectInputStream(arrayInputStream);
 
-            Map<Integer, List<SlotItem>> itemStacks = (Map<Integer, List<SlotItem>>) objectInputStream.readObject();
+            List<SlotItem> itemStacks = (List<SlotItem>) objectInputStream.readObject();
 
             objectInputStream.close();
             arrayInputStream.close();

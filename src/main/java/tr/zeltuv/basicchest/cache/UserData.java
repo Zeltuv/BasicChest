@@ -99,7 +99,20 @@ public class UserData {
 
             document.put("uuid",player.getUniqueId().toString());
 
-            document.put("content",ItemSerializer.serializeIntoString(content));
+
+            List<Document> documentList = new ArrayList<>();
+
+            content.forEach((integer, slotItems) -> {
+                Document contentDoc = new Document();
+
+                contentDoc.put("page",integer);
+                contentDoc.put("items",ItemSerializer.serializeIntoString(slotItems));
+
+                documentList.add(contentDoc);
+            });
+
+            document.put("content",documentList);
+
 
             plugin.getDatabaseManager().getCollection().replaceOne(Filters.eq(
                     "uuid",player.getUniqueId().toString()),document);
@@ -113,7 +126,7 @@ public class UserData {
         Document document = new Document();
 
         document.put("uuid",player.getUniqueId().toString());
-        document.put("content",ItemSerializer.serializeIntoString(content));
+        document.put("content",new ArrayList<Document>());
 
         collection.insertOne(document);
     }
@@ -139,7 +152,14 @@ public class UserData {
 
         Map<Integer,List<SlotItem>> content = new HashMap<>();
 
-        content.putAll(ItemSerializer.fromMapString(document.getString("content")));
+        List<Document> documentList = (List<Document>) document.get("content");
+
+        for (Document document1 : documentList) {
+            int page = document1.getInteger("page");
+            List<SlotItem> slotItemList = ItemSerializer.fromMapString(document1.getString("items"));
+
+            content.put(page,slotItemList);
+        }
 
         UserData userData = new UserData(plugin.getDatabaseManager(), player);
 
